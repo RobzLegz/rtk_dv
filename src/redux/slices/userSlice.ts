@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { UserInterface } from "../../interfaces/userInterface";
 
-interface State{
+export interface UserInfo{
     loggedIn: boolean,
     token: string,
     loading: boolean,
@@ -10,7 +10,7 @@ interface State{
     activeProfile: UserInterface | null;
 }
 
-const initialState: State = {
+const initialState: UserInfo = {
     loggedIn: false,
     token: "",
     info: null,
