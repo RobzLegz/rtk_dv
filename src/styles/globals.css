@@ -1,3 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    h1{
+        @apply text-4xl font-title;
+    }
+
+    body{
+        @apply bg-lightGray;
+    }
+}
