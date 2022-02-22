@@ -22,8 +22,18 @@ const register = async (req: any, res: any) => {
             return res.status(400).json({err: errMsg});
         }
 
-        const user = await Users.findOne({ email: email });
-        if(user){
+        const id_check = await Users.findOne({ rtk_id: rtk_id });
+        if(id_check){
+            return res.status(400).json({err: "A user with this RTK id already exists."});
+        }
+
+        const username_check = await Users.findOne({ username: username });
+        if(username_check){
+            return res.status(400).json({err: "A user with this username already exists."});
+        }
+
+        const email_check = await Users.findOne({ email: email });
+        if(email_check){
             return res.status(400).json({err: "A user with this email already exists."});
         }
 
