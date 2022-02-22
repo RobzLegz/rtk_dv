@@ -1,19 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-export interface User{
-    _id: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    password: string;
-    role: string;
-    cart: any[];
-}
+import { UserInterface } from "../../interfaces/userInterface";
 
 interface State{
     loggedIn: boolean,
     token: string,
-    info: any,
+    info: UserInterface | null,
     loading: boolean,
 }
 
@@ -31,11 +22,25 @@ export const userSlice = createSlice({
         login: (state) => {
             state.loggedIn = true;
         },
+        setUserInfo: (state, action) => {
+            state.info = action.payload;
+        },
+        setToken: (state, action) => {
+            state.token = action.payload;
+        },
+        logout: (state) => {
+            state.info = null;
+            state.token = "";
+            state.loggedIn = false;
+        },
     },
 });
 
 export const {
     login,
+    setUserInfo,
+    setToken,
+    logout
 } = userSlice.actions;
 
 export const selectUser = (state: any) => state.user;
