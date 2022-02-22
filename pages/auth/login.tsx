@@ -2,6 +2,7 @@ import Head from "next/head"
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Navigation from "../../src/components/Navigation";
 import { selectUser, UserInfo } from "../../src/redux/slices/userSlice";
 
 export default function Home() {
@@ -23,6 +24,8 @@ export default function Home() {
                 <meta name="description" content="Skolēnu veidots informācijas avots par Rīgas Tehniskajā koledžā notiekošo" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            <Navigation />
         </div>
     )
 }
