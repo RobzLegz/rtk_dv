@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     course: {
         type: String,
-        required: true,
+        default: ""
     },
     password: {
         type: String,
@@ -28,12 +28,16 @@ const userSchema = new mongoose.Schema({
     },
     rtk_id: {
         type: String,
-        required: true,
+        default: "",
         unique: true
     },
     avatar: {
         type: String,
         default: "https://res.cloudinary.com/ddqddw48c/image/upload/v1645539247/rtkdzive/avatars/user_g8pwsh.svg"
+    },
+    license_url: {
+        type: String,
+        required: true
     },
     friends: {
         type: Array,

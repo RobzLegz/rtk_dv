@@ -21,7 +21,7 @@ export default function Home() {
     return (
         <div className="page">
             <Head>
-                <title>RTK dzīve | Login</title>
+                <title>RTK dzīve | Register</title>
                 <meta name="description" content="Skolēnu veidots informācijas avots par Rīgas Tehniskajā koledžā notiekošo" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>

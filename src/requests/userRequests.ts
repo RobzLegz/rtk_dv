@@ -3,7 +3,7 @@ import { login, logout, setActiveProfile, setToken, setUserInfo, setUsers } from
 import { clearNotification, setNotification } from "../redux/slices/notificationSlice";
 import axios from "axios";
 
-const registerUser = (e: any, username: string, email: string, password: string, cfPassword: string, agreedToPrivacyPolicy: boolean, dispatch: any, router: any, clicked: boolean, setClicked: any) => {
+const registerUser = (e: any, username: string, email: string, password: string, agreedToPrivacyPolicy: boolean, dispatch: any, router: any, clicked: boolean, setClicked: any) => {
     e.preventDefault();
 
     if(clicked){
@@ -27,7 +27,6 @@ const registerUser = (e: any, username: string, email: string, password: string,
         username: username,
         email: email,
         password: password,
-        cf_password: cfPassword,
     };
 
     axios.post("/api/auth/register", userData)
