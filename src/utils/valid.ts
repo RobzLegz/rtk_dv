@@ -1,21 +1,34 @@
-const valid = (name: string, email: string, password: string, cf_password: string) => {
-    if(!name || !email || !password)
-        return "Please fill in all fields."
+const valid = (username: string, name: string, email: string, course: string, rtk_id: string, password: string, cf_password: string) => {
+    if(!username || !name || !email || !password || !course || !rtk_id || !cf_password){
+        return "Please fill in all fields.";
+    }
 
-    if(name.length > 10){
-        return "Your username can't be that long."
+    if(username.length < 4){
+        return "Your username can't be that short.";
+    }
+
+    if(username.length > 20){
+        return "Your username can't be that long.";
+    }
+
+    if(name.length > 30){
+        return "Your name can't be that long.";
+    }
+
+    if(course.length < 3){
+        return "Your course can't be that short.";
     }
 
     if(!validateEmail(email)){
-        return "Invalid email."
+        return "Invalid email.";
     }
 
     if(password.length < 6){
-        return "Password must be at least 6 characters."
+        return "Password must be at least 6 characters.";
     }
 
     if(password !== cf_password){
-        return "Passwords did not match."
+        return "Passwords did not match.";
     }
 }
 
@@ -28,6 +41,7 @@ const validatePhoneNumber = (phoneNumber: string) => {
     if(phoneNumber.length === 8){
         return true;
     }
+
     return false;
 }
 
@@ -38,16 +52,10 @@ const validateAddress = (address: string) => {
     return true;
 }
 
-const validateURL = (websiteURL: string) => {
-    const re = /^(ftp|http|https):\/\/[^ "]+$/;
-    return re.test(websiteURL);
-}
-
 export default valid;
 
 export {
     validateEmail,
     validatePhoneNumber,
     validateAddress,
-    validateURL
 };

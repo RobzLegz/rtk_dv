@@ -1,7 +1,7 @@
-import connectDB from "../../../utils/connectDB"
-import Users from "../../../models/userModel"
-import jwt from "jsonwebtoken"
-import { createAccessToken } from "../../../utils/generateToken"
+import connectDB from "../../../src/utils/connectDB";
+import Users from "../../../src/models/userModel";
+import jwt from "jsonwebtoken";
+import { createAccessToken } from "../../../src/utils/generateToken";
 
 connectDB();
 
