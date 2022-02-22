@@ -10,14 +10,13 @@ const AuthForm: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
-    const [studentId, setStudentId] = useState("");
 
     const authorize = (e: any) => {
         e.preventDefault();
     }   
 
     return (
-        <div className="flex items-center justify-center w-full p-0 h-full">
+        <div className="flex items-center justify-center w-full p-0 h-full pt-20 pb-10 md:py-0">
             <form className="w-11/12 max-w-[350px] bg-white flex flex-col items-start rounded-lg py-4 px-4">
                 <h2 className="mb-4">{type === "/auth/login" ? "Login" : "Register"}</h2>
 
@@ -70,24 +69,6 @@ const AuthForm: React.FC = () => {
                         id="username" 
                     />
                 </div>
-
-                {
-                    type === "/auth/register" && (
-                        <div className="flex flex-col w-full mb-4">
-                            <label className="mb-1">Student id</label>
-
-                            <input 
-                                value={studentId}
-                                onChange={(e) => setStudentId(e.target.value)}
-                                className="h-11"                        
-                                type="text" 
-                                placeholder="student id"
-                                name="student_id" 
-                                id="student_id" 
-                            />
-                        </div>
-                    )
-                }
 
                 <div className="flex flex-col w-full">
                     <label className="mb-1">Password</label>
