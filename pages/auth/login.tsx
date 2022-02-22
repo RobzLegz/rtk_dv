@@ -2,6 +2,7 @@ import Head from "next/head"
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AuthForm from "../../src/components/AuthForm";
 import Navigation from "../../src/components/Navigation";
 import { selectUser, UserInfo } from "../../src/redux/slices/userSlice";
 
@@ -18,7 +19,7 @@ export default function Home() {
     }, [userInfo.loggedIn, dispatch, userInfo.token, router]);
 
     return (
-        <div>
+        <div className="page">
             <Head>
                 <title>RTK dzīve | Login</title>
                 <meta name="description" content="Skolēnu veidots informācijas avots par Rīgas Tehniskajā koledžā notiekošo" />
@@ -26,6 +27,8 @@ export default function Home() {
             </Head>
 
             <Navigation />
+
+            <AuthForm />
         </div>
     )
 }
