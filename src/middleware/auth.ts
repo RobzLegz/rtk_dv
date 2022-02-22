@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken"
-import Users from "../models/userModel"
+import jwt from "jsonwebtoken";
+import Users from "../models/userModel";
 
 
 const auth = async (req: any, res: any) => {
@@ -10,6 +10,7 @@ const auth = async (req: any, res: any) => {
 
     if(process.env.ACCESS_TOKEN_SECRET){
         const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        
         if(!decoded){
             return res.status(400).json({err: "Invalid Authentication."});
         }else{
