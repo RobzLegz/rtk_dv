@@ -1,5 +1,5 @@
-const valid = (username: string, name: string, email: string, course: string, rtk_id: string, password: string) => {
-    if(!username || !name || !email || !password || !course || !rtk_id){
+const valid = (username: string, name: string, email: string, password: string) => {
+    if(!username || !name || !email || !password){
         return "Please fill in all fields.";
     }
 
@@ -13,10 +13,6 @@ const valid = (username: string, name: string, email: string, course: string, rt
 
     if(name.length > 30){
         return "Your name can't be that long.";
-    }
-
-    if(course.length < 3){
-        return "Your course can't be that short.";
     }
 
     if(!validateEmail(email)){

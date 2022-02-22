@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     course: {
         type: String,
-        required: true,
+        default: ""
     },
     password: {
         type: String,
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     },
     rtk_id: {
         type: String,
-        required: true,
+        default: "",
         unique: true
     },
     avatar: {

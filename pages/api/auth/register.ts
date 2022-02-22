@@ -15,16 +15,11 @@ export default async (req: any, res: any) => {
 
 const register = async (req: any, res: any) => {
     try{
-        const { username, name, course, rtk_id, email, password } = req.body;
+        const { username, name, email, password } = req.body;
 
-        const errMsg = valid(username, name, email, course, rtk_id, password);
+        const errMsg = valid(username, name, email, password);
         if(errMsg){
             return res.status(400).json({err: errMsg});
-        }
-
-        const id_check = await Users.findOne({ rtk_id: rtk_id });
-        if(id_check){
-            return res.status(400).json({err: "A user with this RTK id already exists."});
         }
 
         const username_check = await Users.findOne({ username: username });
