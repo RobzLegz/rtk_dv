@@ -6,11 +6,19 @@
 
 @layer components{
     h1{
-        @apply text-4xl text-dark font-title;
+        @apply text-4xl text-dark font-title font-bold;
+    }
+
+    h2{
+        @apply text-4xl text-dark font-bold;
     }
 
     body{
         @apply bg-lightGray;
+    }
+
+    input{
+        @apply border-[1px] rounded-md border-dark px-2 text-dark outline-rtkBlue;
     }
 
     .page{

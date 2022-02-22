@@ -9,6 +9,7 @@ const AuthForm: React.FC = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
 
     const authorize = (e: any) => {
         e.preventDefault();
@@ -16,7 +17,7 @@ const AuthForm: React.FC = () => {
 
     return (
         <div className="flex items-center justify-center w-full p-0 h-full">
-            <form className="w-11/12 max-w-[350px] bg-white flex flex-col items-center rounded-lg py-4 px-4">
+            <form className="w-11/12 max-w-[350px] bg-white flex flex-col items-start rounded-lg py-4 px-4">
                 <h2 className="mb-4">{type === "/auth/login" ? "Login" : "Register"}</h2>
 
                 {
@@ -27,7 +28,7 @@ const AuthForm: React.FC = () => {
                             <input 
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="h-8"                        
+                                className="h-11"                        
                                 type="text" 
                                 placeholder="name"
                                 name="name" 
@@ -37,27 +38,45 @@ const AuthForm: React.FC = () => {
                     )
                 }
 
+                {
+                    type === "/auth/register" && (
+                        <div className="flex flex-col w-full mb-4">
+                            <label className="mb-1">Email</label>
+
+                            <input 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="h-11"                        
+                                type="email" 
+                                placeholder="email"
+                                name="email" 
+                                id="email" 
+                            />
+                        </div>
+                    )
+                }
+
                 <div className="flex flex-col w-full mb-4">
-                    <label className="mb-1">E-mail</label>
+                    <label className="mb-1">Username</label>
 
                     <input 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="h-8"                        
-                        type="email" 
-                        placeholder="email"
-                        name="email" 
-                        id="email" 
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="h-11"                        
+                        type="username" 
+                        placeholder="username"
+                        name="username" 
+                        id="username" 
                     />
                 </div>
 
-                <div className="flex flex-col w-full mb-4">
+                <div className="flex flex-col w-full">
                     <label className="mb-1">Password</label>
 
                     <input 
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="h-8"                        
+                        className="h-11"                        
                         type="password" 
                         placeholder="password"
                         name="password" 
@@ -67,7 +86,7 @@ const AuthForm: React.FC = () => {
 
                 <button 
                     onClick={(e) => authorize(e)}
-                    className="outline-green-600 rounded-full bg-green-600 text-white hover:bg-green-700 mb-4 w-full h-12"
+                    className="outline-rtkBlue rounded-full bg-rtkBlue text-white my-10 w-full h-12 hover:bg-rtkBlue-darker duration-200"
                     type="submit"
                 >{type === "/auth/login" ? "Login" : "Register"}</button>
 
@@ -75,11 +94,9 @@ const AuthForm: React.FC = () => {
                     <div className="flex items-center">
                         <p>{type === "/auth/login" ? "Dont have an account?" : "Already have an account?"}</p>
 
-                        <button>
-                            <Link href={type === "/auth/login" ? "/auth/register" : "/auth/login"}>
-                                <p className="text-green-600">{type === "/auth/login" ? "Register" : "Login"}</p>
-                            </Link>
-                        </button>
+                        <Link href={type === "/auth/login" ? "/auth/register" : "/auth/login"}>
+                            <strong className="text-rtkBlue cursor-pointer ml-1">{type === "/auth/login" ? "Register" : "Login"}</strong>
+                        </Link>
                     </div>
                 </div>
             </form>

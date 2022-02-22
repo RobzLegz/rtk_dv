@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        title: ["Audiowide", "cursive"]
+        title: ["Audiowide", "cursive"],
       },
       colors: {
         lightGray: {
@@ -18,7 +18,8 @@ module.exports = {
           DEFAULT: "#554F51"
         },
         rtkBlue: {
-          DEFAULT: "#5C61CE"
+          DEFAULT: "#5C61CE",
+          darker: "#4D52D6"
         }
       },
     },
