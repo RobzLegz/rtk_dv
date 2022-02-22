@@ -40,7 +40,7 @@ const registerUser = (e: any, username: string, email: string, password: string,
         });
 }
 
-const loginUser = (e: any, email: string, password: string, dispatch: any, router: any, clicked: boolean, setClicked: any) => {
+const loginUser = (e: any, username: string, password: string, dispatch: any, router: any, clicked: boolean, setClicked: any) => {
     e.preventDefault();
 
     if(clicked){
@@ -51,35 +51,33 @@ const loginUser = (e: any, email: string, password: string, dispatch: any, route
 
     dispatch(setNotification({type: "loading", message: "loading"}));
 
-    if(!email || !password){
+    if(!username || !password){
         return dispatch(setNotification({type: "error", message: "Please fill out all fields!"}));
+    }
+
+    if(username.length < 6){
+        return dispatch(setNotification({type: "error", message: "Username too short!"}));
     }
 
     if(password.length < 6){
         return dispatch(setNotification({type: "error", message: "Password should be at least 6 characters!"}));
     }
 
-    const emailValid = validateEmail(email);
-    
-    if(emailValid){
-        const userData = {
-            email: email,
-            password: password,
-        };
-    
-        axios.post("/api/auth/login", userData)
-            .then((res: any) => {
-                localStorage.setItem("firstLogin", "true");
-                window.localStorage.setItem("refreshtoken", res.data.refresh_token)
-                dispatch(clearNotification());
-                checkForLogin(dispatch, router);
-            }).catch((err: any) => {
-                const message: string = err.response.data.err;
-                dispatch(setNotification({type: "error", message: message}));
-            });
-    }else{
-        dispatch(setNotification({type: "error", message: "Please enter a valid email!"}));
-    }
+    const userData = {
+        username: username,
+        password: password,
+    };
+
+    axios.post("/api/auth/login", userData)
+        .then((res: any) => {
+            localStorage.setItem("firstLogin", "true");
+            window.localStorage.setItem("refreshtoken", res.data.refresh_token)
+            dispatch(clearNotification());
+            checkForLogin(dispatch, router);
+        }).catch((err: any) => {
+            const message: string = err.response.data.err;
+            dispatch(setNotification({type: "error", message: message}));
+        });
 }
 
 const checkForLogin = (dispatch: any, router: any) => {
