@@ -22,8 +22,6 @@ const upload = async (req: any, res: any) => {
             api_secret: CLOUD_API_SECRET
         });
 
-        console.log(req)
-
         const file = req.files[Object.keys(req.files)[0]];
         if(!file){
             return res.status(400).json({err: "No files were uploaded."});
