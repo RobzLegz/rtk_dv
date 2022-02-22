@@ -15,7 +15,7 @@ export default async (req: any, res: any) => {
 
 const register = async (req: any, res: any) => {
     try{
-        const { username, name, email, password } = req.body;
+        const { username, name, email, password, license_url } = req.body;
 
         const errMsg = valid(username, name, email, password);
         if(errMsg){
@@ -38,10 +38,12 @@ const register = async (req: any, res: any) => {
             username, 
             name,
             email, 
+            license_url,
             password: passwordHash
         });
 
         await newUser.save();
+
         res.json({msg: "Register Success!"});
     }catch(err: any){
         return res.status(500).json({err: err.message});

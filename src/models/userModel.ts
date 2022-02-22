@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://res.cloudinary.com/ddqddw48c/image/upload/v1645539247/rtkdzive/avatars/user_g8pwsh.svg"
     },
+    license_url: {
+        type: String,
+        required: true
+    },
     friends: {
         type: Array,
         default: []
