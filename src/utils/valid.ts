@@ -1,5 +1,5 @@
-const valid = (username: string, name: string, email: string, course: string, rtk_id: string, password: string, cf_password: string) => {
-    if(!username || !name || !email || !password || !course || !rtk_id || !cf_password){
+const valid = (username: string, name: string, email: string, course: string, rtk_id: string, password: string) => {
+    if(!username || !name || !email || !password || !course || !rtk_id){
         return "Please fill in all fields.";
     }
 
@@ -25,10 +25,6 @@ const valid = (username: string, name: string, email: string, course: string, rt
 
     if(password.length < 6){
         return "Password must be at least 6 characters.";
-    }
-
-    if(password !== cf_password){
-        return "Passwords did not match.";
     }
 }
 

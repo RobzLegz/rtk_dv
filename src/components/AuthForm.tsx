@@ -10,6 +10,7 @@ const AuthForm: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+    const [studentId, setStudentId] = useState("");
 
     const authorize = (e: any) => {
         e.preventDefault();
@@ -63,12 +64,30 @@ const AuthForm: React.FC = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         className="h-11"                        
-                        type="username" 
+                        type="text" 
                         placeholder="username"
                         name="username" 
                         id="username" 
                     />
                 </div>
+
+                {
+                    type === "/auth/register" && (
+                        <div className="flex flex-col w-full mb-4">
+                            <label className="mb-1">Student id</label>
+
+                            <input 
+                                value={studentId}
+                                onChange={(e) => setStudentId(e.target.value)}
+                                className="h-11"                        
+                                type="text" 
+                                placeholder="student id"
+                                name="student_id" 
+                                id="student_id" 
+                            />
+                        </div>
+                    )
+                }
 
                 <div className="flex flex-col w-full">
                     <label className="mb-1">Password</label>
