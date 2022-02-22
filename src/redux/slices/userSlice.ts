@@ -4,8 +4,10 @@ import { UserInterface } from "../../interfaces/userInterface";
 interface State{
     loggedIn: boolean,
     token: string,
-    info: UserInterface | null,
     loading: boolean,
+    info: UserInterface | null,
+    users: UserInterface[] | null;
+    activeProfile: UserInterface | null;
 }
 
 const initialState: State = {
@@ -13,6 +15,8 @@ const initialState: State = {
     token: "",
     info: null,
     loading: true,
+    users: null,
+    activeProfile: null
 }
 
 export const userSlice = createSlice({
@@ -33,6 +37,12 @@ export const userSlice = createSlice({
             state.token = "";
             state.loggedIn = false;
         },
+        setUsers: (state, action) => {
+            state.users = action.payload;
+        },
+        setActiveProfile: (state, action) => {
+            state.activeProfile = action.payload;
+        },
     },
 });
 
@@ -40,7 +50,9 @@ export const {
     login,
     setUserInfo,
     setToken,
-    logout
+    logout,
+    setUsers,
+    setActiveProfile
 } = userSlice.actions;
 
 export const selectUser = (state: any) => state.user;

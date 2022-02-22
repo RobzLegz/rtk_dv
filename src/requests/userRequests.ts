@@ -1,5 +1,5 @@
-import valid, { validateEmail } from "../utils/valid";
-import { login, logout, setToken, setUserInfo } from "../redux/slices/userSlice";
+import valid from "../utils/valid";
+import { login, logout, setActiveProfile, setToken, setUserInfo, setUsers } from "../redux/slices/userSlice";
 import { clearNotification, setNotification } from "../redux/slices/notificationSlice";
 import axios from "axios";
 
@@ -14,10 +14,10 @@ const registerUser = (e: any, username: string, email: string, password: string,
 
     dispatch(setNotification({type: "loading", message: "loading"}));
 
-    const errMsg = valid(username, email, password, cfPassword);
-    if(errMsg){
-        return dispatch(setNotification({type: "error", message: errMsg}));
-    }
+    // const errMsg = valid(username, email, password, cfPassword);
+    // if(errMsg){
+    //     return dispatch(setNotification({type: "error", message: errMsg}));
+    // }
     
     if(!agreedToPrivacyPolicy){
         return dispatch(setNotification({type: "error", message: "To register You must accept our privacy policy!"}));
@@ -70,7 +70,7 @@ const loginUser = (e: any, username: string, password: string, dispatch: any, ro
 
     axios.post("/api/auth/login", userData)
         .then((res: any) => {
-            localStorage.setItem("firstLogin", "true");
+            window.localStorage.setItem("firstLogin", "true");
             window.localStorage.setItem("refreshtoken", res.data.refresh_token)
             dispatch(clearNotification());
             checkForLogin(dispatch, router);
@@ -86,30 +86,31 @@ const checkForLogin = (dispatch: any, router: any) => {
     const first_login = window.localStorage.getItem("firstLogin");
     const rf_token = window.localStorage.getItem("refreshtoken");
 
-    if(rf_token && first_login){
-        const headers = {
-            headers: {
-                Authorization: rf_token
-            }
-        }
-        
-        axios.get("/api/auth/accessToken", headers)
-            .then((res: any) => {
-                dispatch(setToken(res.data.access_token));
-                dispatch(setUserInfo(res.data.user));
-                dispatch(login());
-                dispatch(clearNotification());
-            }).catch((err) => {
-                const message: string = err.response.data.err;
-                dispatch(setNotification({type: "error", message: message}));
-                window.localStorage.removeItem("firstLogin");
-                window.localStorage.removeItem("refreshtoken");
-                router.push("/auth/login");
-            });
-    }else{
+    if(!rf_token || !first_login){
         router.push("/auth/login");
         dispatch(clearNotification());
+        return;
     }
+
+    const headers = {
+        headers: {
+            Authorization: rf_token
+        }
+    }
+    
+    axios.get("/api/auth/accessToken", headers)
+        .then((res: any) => {
+            dispatch(setToken(res.data.access_token));
+            dispatch(setUserInfo(res.data.user));
+            dispatch(login());
+            dispatch(clearNotification());
+        }).catch((err) => {
+            const message: string = err.response.data.err;
+            dispatch(setNotification({type: "error", message: message}));
+            window.localStorage.removeItem("firstLogin");
+            window.localStorage.removeItem("refreshtoken");
+            router.push("/auth/login");
+        });
 }
 
 const logoutuser = (dispatch: any) => {
@@ -119,4 +120,62 @@ const logoutuser = (dispatch: any) => {
     dispatch(setNotification({type: "success", message: "Logged out!"}))
 }
 
-export {registerUser, loginUser, checkForLogin, logoutuser};
+const getAllUsers = (dispatch: any) => {
+    axios.get("/api/user")
+        .then((res) => {
+            dispatch(setUsers(res.data));
+        }).catch((err) => {
+            const message: string = err.response.data.err;
+            dispatch(setNotification({type: "error", message: message}));
+        });
+}
+
+const getUserInfoByUsername = (username: string | string[] | undefined, dispatch: any) => {
+    dispatch(setNotification({type: "loading", message: "Loading"}));
+
+    if(typeof(username) !== "string"){
+        return dispatch(setNotification({type: "error", message: "Something went wrong"}));
+    }
+
+    axios.get(`/api/user/profile/${username}`)
+        .then((res) => {
+            dispatch(setActiveProfile(res.data));
+            dispatch(clearNotification());
+        }).catch((err) => {
+            const message: string = err.response.data.err;
+            dispatch(setNotification({type: "error", message: message}));
+        });
+}
+
+const updateInfo = (name: string, username: string, email: string, token: string, dispatch: any) => {
+    dispatch(setNotification({type: "loading", message: "Loading"}));
+    
+    const data = {
+        name: name,
+        username: username,
+        email: email,
+    }
+
+    const headers = {
+        headers: {
+            Authorization: token
+        }
+    }
+
+    axios.put(`/api/user/`, data, headers)
+        .then((res) => {
+            dispatch(setNotification({type: "success", message: "Update success"}));
+        }).catch((err) => {
+            const message: string = err.response.data.err;
+            dispatch(setNotification({type: "error", message: message}));
+        });
+}
+
+export {
+    registerUser, 
+    loginUser, 
+    checkForLogin, 
+    logoutuser, 
+    updateInfo,
+    getUserInfoByUsername
+};
