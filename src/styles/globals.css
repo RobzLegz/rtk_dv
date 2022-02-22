@@ -24,4 +24,8 @@
     .page{
         @apply flex items-center justify-center h-screen w-full;
     }
+
+    .file_label{
+        @apply border-[1px] rounded-sm border-dark p-2 text-dark outline-rtkBlue;
+    }
 }
