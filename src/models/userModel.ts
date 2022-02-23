@@ -29,7 +29,6 @@ const userSchema = new mongoose.Schema({
     rtk_id: {
         type: String,
         default: "",
-        unique: true
     },
     avatar: {
         type: String,
