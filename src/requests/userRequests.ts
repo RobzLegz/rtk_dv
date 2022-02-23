@@ -25,6 +25,7 @@ const registerUser = (
 
     const errMsg = valid(username, name, email, password);
     if(errMsg){
+        setLoading(false);
         return setError(errMsg);
     }
     
@@ -42,6 +43,7 @@ const registerUser = (
             router.push("/auth/login");
         }).catch((err: any) => {
             const message: string = err.response.data.err;
+            setLoading(false);
             setError(message);
         });
 }
@@ -64,17 +66,23 @@ const loginUser = (
 
     setLoading(true);
 
-    dispatch(setNotification({type: "loading", message: "loading"}));
-
     if(!username || !password){
+        setLoading(false);
         return setError("Please fill out all fields!");
     }
 
     if(username.length < 6){
+        setLoading(false);
         return setError("Username too short!");
     }
 
+    if(username.length > 20){
+        setLoading(false);
+        return setError("Username too long!");
+    }
+
     if(password.length < 6){
+        setLoading(false);
         return setError("Password should be at least 6 characters!");
     }
 
@@ -92,6 +100,7 @@ const loginUser = (
             setLoading(false);
         }).catch((err: any) => {
             const message: string = err.response.data.err;
+            setLoading(false);
             setError(message);
         });
 }

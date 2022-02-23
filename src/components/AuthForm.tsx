@@ -32,6 +32,14 @@ const AuthForm: React.FC = () => {
                 <h2 className="mb-4">{type === "/auth/login" ? "Login" : "Register"}</h2>
 
                 {
+                    error && (
+                        <div className="w-full p-2 bg-red-700 flex items-center justify-center">
+                            <p className="text-white">{error}</p>
+                        </div>
+                    )
+                }
+
+                {
                     type === "/auth/register" && (
                         <div className="flex flex-col w-full mb-4">
                             <label htmlFor="name" className="mb-1">Name</label>
@@ -99,14 +107,23 @@ const AuthForm: React.FC = () => {
                     onClick={(e) => authorize(e)}
                     className="outline-rtkBlue rounded-full bg-rtkBlue text-white my-10 w-full h-12 hover:bg-rtkBlue-darker duration-200"
                     type="submit"
-                >{type === "/auth/login" ? "Login" : "Register"}</button>
+                >
+                    {
+                        loading ? (
+                            <></>
+                        ) : type === "/auth/login" ? "Login" : "Register"
+                    }
+                </button>
 
                 <div className="flex flex-row w-full justify-between">
                     <div className="flex items-center">
                         <p>{type === "/auth/login" ? "Dont have an account?" : "Already have an account?"}</p>
 
                         <Link href={type === "/auth/login" ? "/auth/register" : "/auth/login"}>
-                            <strong className="text-rtkBlue cursor-pointer ml-1">{type === "/auth/login" ? "Register" : "Login"}</strong>
+                            {
+                                    <strong className="text-rtkBlue cursor-pointer ml-1">{type === "/auth/login" ? "Register" : "Login"}</strong>
+                                    
+                            }
                         </Link>
                     </div>
                 </div>
