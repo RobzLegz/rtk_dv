@@ -3,27 +3,33 @@ import { login, logout, setActiveProfile, setToken, setUserInfo, setUsers } from
 import { clearNotification, setNotification } from "../redux/slices/notificationSlice";
 import axios from "axios";
 
-const registerUser = (e: any, username: string, email: string, password: string, agreedToPrivacyPolicy: boolean, dispatch: any, router: any, clicked: boolean, setClicked: any) => {
+const registerUser = (
+    e: any, 
+    username: string, 
+    name: string, 
+    email: string, 
+    password: string, 
+    dispatch: any, 
+    router: any, 
+    loading: boolean, 
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setError: React.Dispatch<React.SetStateAction<string>>
+) => {
     e.preventDefault();
 
-    if(clicked){
+    if(loading){
         return
     }
 
-    setClicked(true);
+    setLoading(true);
 
-    dispatch(setNotification({type: "loading", message: "loading"}));
-
-    // const errMsg = valid(username, email, password, cfPassword);
-    // if(errMsg){
-    //     return dispatch(setNotification({type: "error", message: errMsg}));
-    // }
-    
-    if(!agreedToPrivacyPolicy){
-        return dispatch(setNotification({type: "error", message: "To register You must accept our privacy policy!"}));
+    const errMsg = valid(username, name, email, password);
+    if(errMsg){
+        return setError(errMsg);
     }
     
     const userData = {
+        name: name,
         username: username,
         email: email,
         password: password,
@@ -32,34 +38,44 @@ const registerUser = (e: any, username: string, email: string, password: string,
     axios.post("/api/auth/register", userData)
         .then((res: any) => {
             dispatch(setNotification({type: "success", message: "Register success. Log in now"}));
+            setLoading(false);
             router.push("/auth/login");
         }).catch((err: any) => {
             const message: string = err.response.data.err;
-            dispatch(setNotification({type: "error", message: message}));
+            setError(message);
         });
 }
 
-const loginUser = (e: any, username: string, password: string, dispatch: any, router: any, clicked: boolean, setClicked: any) => {
+const loginUser = (
+    e: any, 
+    username: string, 
+    password: string, 
+    dispatch: any, 
+    router: any, 
+    loading: boolean, 
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setError: React.Dispatch<React.SetStateAction<string>>
+) => {
     e.preventDefault();
 
-    if(clicked){
+    if(loading){
         return;
     }
 
-    setClicked(true);
+    setLoading(true);
 
     dispatch(setNotification({type: "loading", message: "loading"}));
 
     if(!username || !password){
-        return dispatch(setNotification({type: "error", message: "Please fill out all fields!"}));
+        return setError("Please fill out all fields!");
     }
 
     if(username.length < 6){
-        return dispatch(setNotification({type: "error", message: "Username too short!"}));
+        return setError("Username too short!");
     }
 
     if(password.length < 6){
-        return dispatch(setNotification({type: "error", message: "Password should be at least 6 characters!"}));
+        return setError("Password should be at least 6 characters!");
     }
 
     const userData = {
@@ -73,9 +89,10 @@ const loginUser = (e: any, username: string, password: string, dispatch: any, ro
             window.localStorage.setItem("refreshtoken", res.data.refresh_token)
             dispatch(clearNotification());
             checkForLogin(dispatch, router);
+            setLoading(false);
         }).catch((err: any) => {
             const message: string = err.response.data.err;
-            dispatch(setNotification({type: "error", message: message}));
+            setError(message);
         });
 }
 
