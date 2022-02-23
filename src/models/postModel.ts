@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
     user: {
         type: String,
         required: true
@@ -21,5 +21,5 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
-let Dataset = mongoose.models.user || mongoose.model("user", userSchema);
+let Dataset = mongoose.models.post || mongoose.model("post", postSchema);
 export default Dataset;

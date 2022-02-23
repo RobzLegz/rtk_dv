@@ -1,10 +1,16 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import postData from '../data/postData';
+import { selectUser, UserInfo } from '../redux/slices/userSlice';
+import { createPost } from '../requests/postRequests';
 import Post from './Post';
 
 function PostFeed() {
+    const userInfo: UserInfo = useSelector(selectUser);
+
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const [type] = useState(router.pathname);
     const [text, setText] = useState("");
@@ -29,10 +35,6 @@ function PostFeed() {
             setMedia(URL.createObjectURL(e.target.files[0]))
             setFile(e.target.files[0]);
         }
-    }
-
-    const createPost = () => {
-
     }
 
     return (
@@ -69,14 +71,30 @@ function PostFeed() {
                                 onChange={(e) => changeFile(e)}
                             />
 
-                            <label 
-                                htmlFor="post_file"
-                                className="bg-rtkRed text-white h-10 w-20 md:w-36 cursor-pointer duration-200 flex items-center justify-center"
-                            >
-                                add file
-                            </label>
+                            {
+                                media ? (
+                                    <label 
+                                        htmlFor="post_file"
+                                    >
+                                        <img 
+                                            src={media} 
+                                            alt="post file source" 
+                                            className="h-10 mr-2" 
+                                        />
+                                    </label>
+                                    
+                                ) : (
+                                    <label 
+                                        htmlFor="post_file"
+                                        className="bg-rtkRed text-white h-10 w-20 md:w-36 cursor-pointer duration-200 flex items-center justify-center"
+                                    >
+                                        add file
+                                    </label>
+                                )
+                            }
+                            
                             <button
-                                onClick={() => createPost}
+                                onClick={(e) => createPost(e, text, file, userInfo.token, dispatch, loading, setLoading, setError)}
                                 type="submit"
                                 className="bg-rtkBlue text-white h-10 w-20 md:w-36 cursor-pointer hover:bg-rtkBlue-darker duration-200 rounded-br-md"
                             >post</button>

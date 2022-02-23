@@ -6,7 +6,7 @@ const uploadImage = async (file: any) => {
 
     const imageValid = verifyImage(file);
 
-    if(file && file !== null && !imageValid && CLOUDINARY_URL && UPLOAD_PRESET){
+    if(file && file !== null && imageValid === true && CLOUDINARY_URL && UPLOAD_PRESET){
         let fileForm = new FormData();
         fileForm.append("file", file);
         fileForm.append("upload_preset", UPLOAD_PRESET);

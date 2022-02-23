@@ -29,6 +29,12 @@ const createPost = async (
 
     const media = await uploadImage(file);
 
+    if(!text && !media){
+        setError("Upload failed");
+        setLoading(false);
+        return;
+    }
+
     const headers = {
         headers: {
             Authorization: token

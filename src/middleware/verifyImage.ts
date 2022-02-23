@@ -7,9 +7,11 @@ const verifyImage = (file: any) => {
         return"Size too large."
     }
 
-    if(file.mimetype !== "image/jpeg" && file.mimetype !== "image/png"){
+    if(file.type !== "image/jpeg" && file.type !== "image/png"){
         return "File format is incorrect.";
     }
+
+    return true;
 }
 
 export default verifyImage;
