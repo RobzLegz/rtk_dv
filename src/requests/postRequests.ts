@@ -1,7 +1,7 @@
 import axios from "axios";
 import uploadImage from "./uploadImage";
 import {PostInterface} from "../interfaces/postInterface";
-import { publishPost } from "../redux/slices/postSlice";
+import { publishPost, setPosts } from "../redux/slices/postSlice";
 
 const createPost = async (
     e: any, 
@@ -58,6 +58,20 @@ const createPost = async (
         });
 }
 
+const getPosts = (dispatch: any, token: string) => {
+    const headers = {
+        headers: {
+            Authorization: token
+        }
+    }
+
+    axios.get("/api/posts", headers)
+        .then((res) => {
+            dispatch(setPosts(res.data));
+        })
+}
+
 export {
-    createPost
+    createPost,
+    getPosts
 };

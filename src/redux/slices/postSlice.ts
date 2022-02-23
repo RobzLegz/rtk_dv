@@ -31,6 +31,6 @@ export const {
     publishPost
 } = postSlice.actions;
 
-export const selectPosts = (state: any) => state.post;
+export const selectPosts = (state: any) => state.posts;
 
 export default postSlice.reducer;
