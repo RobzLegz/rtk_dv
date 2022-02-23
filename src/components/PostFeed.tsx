@@ -26,7 +26,7 @@ function PostFeed() {
 
                     <label 
                         htmlFor="post_file"
-                        className="bg-rtkRed text-white h-10 w-20 md:w-36 cursor-pointer hover:bg-rtkRed-lighter duration-200 flex items-center justify-center"
+                        className="bg-rtkRed text-white h-10 w-20 md:w-36 cursor-pointer duration-200 flex items-center justify-center"
                     >
                         add file
                     </label>
