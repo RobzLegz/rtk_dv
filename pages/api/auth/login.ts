@@ -2,7 +2,6 @@ import connectDB from "../../../src/utils/connectDB";
 import bcrypt from "bcrypt";
 import Users from "../../../src/models/userModel";
 import { createAccessToken, createRefreshToken } from "./../../../src/utils/generateToken";
-import {validateEmail} from "../../../src/utils/valid";
 
 connectDB();
 
@@ -16,16 +15,11 @@ export default async (req: any, res: any) => {
 
 const login = async (req: any, res: any) => {
     try{
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
-        const emailCheck = validateEmail(email);
-        if(!emailCheck){
-            return res.status(400).json({err: "Please enter a valid email."});
-        }
-
-        const user = await Users.findOne({ email: email });
+        const user = await Users.findOne({ username: username });
         if(!user){
-            return res.status(400).json({err: "A user with this email does not exist."});
+            return res.status(400).json({err: "This username does not exist."});
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
