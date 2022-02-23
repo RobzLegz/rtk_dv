@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { UserInterface } from "../interfaces/userInterface";
 import getUserByUsername from "../logic/getUserByUsername";
 import { selectUser, UserInfo } from "../redux/slices/userSlice";
+import EditProfilePopup from "./EditProfilePopup";
 import PostFeed from "./PostFeed";
 
 function ProfileContainer() {
@@ -12,6 +13,7 @@ function ProfileContainer() {
 
     const [username, setUsername] = useState<string | string[] | undefined>("");
     const [foundUser, setFoundUser] = useState<UserInterface | null>(null);
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         if(!username){
@@ -35,7 +37,7 @@ function ProfileContainer() {
                 <img 
                     src={foundUser.avatar} 
                     alt={`${foundUser.username}'s RTK profile avatar`}
-                    className="w-[90px] h-[130px] object-cover mr-2"
+                    className="w-[70px] sm:w-[90px] h-[110px] sm:h-[130px] object-cover mr-2"
                 />
 
                 <div className="">
@@ -56,7 +58,10 @@ function ProfileContainer() {
 
                     {
                         userInfo.info?._id === foundUser._id ? (
-                            <button className="bg-rtkRed text-white h-8 w-36 cursor-pointer duration-200 flex sm:hidden items-center justify-center rounded-md">
+                            <button 
+                                className="bg-rtkRed text-white h-8 w-36 cursor-pointer duration-200 flex sm:hidden items-center justify-center rounded-md"
+                                onClick={() => setEditing(true)}
+                            >
                                 Edit profile
                             </button>
                         ) : (
@@ -65,7 +70,6 @@ function ProfileContainer() {
                             </button>
                         )
                     }
-                    
                 </div>
 
                 {
@@ -73,11 +77,18 @@ function ProfileContainer() {
                         <img 
                             src="/svg/edit.svg" 
                             alt="edit" 
-                            className="hidden sm:block absolute top-4 right-4 w-6 h-6" 
+                            className="hidden sm:block absolute top-4 right-4 w-6 h-6 cursor-pointer" 
+                            onClick={() => setEditing(true)}
                         />
                     )
                 }
             </div>
+
+            {
+                editing && (
+                    <EditProfilePopup />
+                )
+            }
 
             <div className="w-full flex items-start justify-center">
                 <PostFeed />
