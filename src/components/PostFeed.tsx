@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import postData from '../data/postData';
 import { postInfo, selectPosts } from '../redux/slices/postSlice';
 import { selectUser, UserInfo } from '../redux/slices/userSlice';
 import { createPost } from '../requests/postRequests';
@@ -96,7 +95,7 @@ function PostFeed() {
                             }
                             
                             <button
-                                onClick={(e) => createPost(e, text, file, userInfo.token, dispatch, loading, setLoading, setError)}
+                                onClick={(e) => createPost(e, text, file, userInfo.token, dispatch, loading, setLoading, setError, setFile, setText, setMedia)}
                                 type="submit"
                                 className="bg-rtkBlue text-white h-10 w-20 md:w-36 cursor-pointer hover:bg-rtkBlue-darker duration-200 rounded-br-md"
                             >post</button>

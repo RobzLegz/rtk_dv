@@ -11,7 +11,10 @@ const createPost = async (
     dispatch: any, 
     loading: boolean, 
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    setError: React.Dispatch<React.SetStateAction<string>>
+    setError: React.Dispatch<React.SetStateAction<string>>,
+    setFile: React.Dispatch<React.SetStateAction<any>>, 
+    setText: React.Dispatch<React.SetStateAction<string>>, 
+    setMedia: React.Dispatch<React.SetStateAction<string>>
 ) => {
     e.preventDefault();
 
@@ -51,6 +54,9 @@ const createPost = async (
             const newPost: PostInterface = res.data;
             dispatch(publishPost(newPost));
             setLoading(false);
+            setFile(null);
+            setText("");
+            setMedia("");
         }).catch((err: any) => {
             const message: string = err.response.data.err;
             setError(message);
