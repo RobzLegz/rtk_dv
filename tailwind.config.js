@@ -25,6 +25,9 @@ module.exports = {
           DEFAULT: "#BE1953",
           darker: "#771F49",
           lighter: "#EB3355"
+        },
+        tpBg: {
+          DEFAULT: "rgba(0, 0, 0, 0.4)"
         }
       },
     },

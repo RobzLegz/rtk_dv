@@ -1,5 +1,5 @@
 import valid from "../utils/valid";
-import { login, logout, setActiveProfile, setToken, setUserInfo, setUsers } from "../redux/slices/userSlice";
+import { login, logout, setActiveProfile, setToken, setUserInfo, setUsers, updateUser } from "../redux/slices/userSlice";
 import { clearNotification, setNotification } from "../redux/slices/notificationSlice";
 import axios from "axios";
 
@@ -142,7 +142,6 @@ const logoutuser = (dispatch: any) => {
     window.localStorage.removeItem("firstLogin");
     window.localStorage.removeItem("refreshtoken");
     dispatch(logout());
-    dispatch(setNotification({type: "success", message: "Logged out!"}))
 }
 
 const getAllUsers = (dispatch: any) => {
@@ -172,13 +171,46 @@ const getUserInfoByUsername = (username: string | string[] | undefined, dispatch
         });
 }
 
-const updateInfo = (name: string, username: string, email: string, token: string, dispatch: any) => {
-    dispatch(setNotification({type: "loading", message: "Loading"}));
+const updateInfo = async (
+    name: string, 
+    username: string, 
+    email: string, 
+    course: string, 
+    avatar: string | undefined,
+    file: any, 
+    token: string, 
+    dispatch: any, 
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>, 
+    setEditing: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    setLoading(true);
+
+    let avatarUrl = avatar;
+
+    const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUD_UPDATE_PRESET;
+    const CLOUDINARY_URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
+
+    if(file && file !== null && CLOUDINARY_URL && UPLOAD_PRESET){
+        let fileForm = new FormData();
+        fileForm.append("file", file);
+        fileForm.append("upload_preset", UPLOAD_PRESET);
+
+        const res = await fetch(CLOUDINARY_URL, {
+            method: "POST",
+            body: fileForm, 
+        });
+
+        const resData = await res.json();
+
+        avatarUrl = resData.secure_url;
+    }
     
     const data = {
         name: name,
         username: username,
         email: email,
+        course: course,
+        avatar: avatarUrl
     }
 
     const headers = {
@@ -189,10 +221,12 @@ const updateInfo = (name: string, username: string, email: string, token: string
 
     axios.put(`/api/user/`, data, headers)
         .then((res) => {
-            dispatch(setNotification({type: "success", message: "Update success"}));
+            dispatch(updateUser({name, username, email, course, avatar: avatarUrl}));
+            setLoading(false);
+            setEditing(false);
         }).catch((err) => {
-            const message: string = err.response.data.err;
-            dispatch(setNotification({type: "error", message: message}));
+            setLoading(false);
+            setEditing(false);
         });
 }
 
