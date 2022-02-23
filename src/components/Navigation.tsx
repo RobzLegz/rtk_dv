@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postInfo, selectPosts } from "../redux/slices/postSlice";
 import { selectUser, UserInfo } from "../redux/slices/userSlice";
 import { getPosts } from "../requests/postRequests";
-import { checkForLogin, getAllUsers } from "../requests/userRequests";
+import { getAllUsers } from "../requests/userRequests";
 
 function Navigation() {
     const userInfo: UserInfo = useSelector(selectUser);
@@ -15,18 +15,6 @@ function Navigation() {
     const router = useRouter();
   
     const [type] = useState(router.pathname);
-
-    useEffect(() => {
-        if(!userInfo.loggedIn || !userInfo.token){
-            const token = window.localStorage.getItem("refreshtoken");
-    
-            if(token){
-                checkForLogin(dispatch, router);
-            }else{
-                router.push("/auth/login");
-            }
-        }
-    }, [userInfo.loggedIn, dispatch, userInfo.token, router]);
 
     useEffect(() => {
         if(userInfo.loggedIn && userInfo.token && !userInfo.users){
