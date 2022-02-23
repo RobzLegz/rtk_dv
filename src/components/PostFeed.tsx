@@ -2,12 +2,14 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import postData from '../data/postData';
+import { postInfo, selectPosts } from '../redux/slices/postSlice';
 import { selectUser, UserInfo } from '../redux/slices/userSlice';
 import { createPost } from '../requests/postRequests';
 import Post from './Post';
 
 function PostFeed() {
     const userInfo: UserInfo = useSelector(selectUser);
+    const postInfo: postInfo = useSelector(selectPosts);
 
     const router = useRouter();
     const dispatch = useDispatch();
@@ -105,7 +107,7 @@ function PostFeed() {
 
             <div className="bg-white p-2 w-full rounded-md">
                 {
-                    postData.map((p, i) => {
+                    postInfo.posts && postInfo.posts.map((p, i) => {
                         return (
                             <Post 
                                 key={i}
