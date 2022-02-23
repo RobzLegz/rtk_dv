@@ -17,6 +17,10 @@
         @apply text-2xl text-dark font-bold;
     }
 
+    h4{
+        @apply text-xl text-dark font-semibold;
+    }
+
     p{
         @apply text-dark;
     }
