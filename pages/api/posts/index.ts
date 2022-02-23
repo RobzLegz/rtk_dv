@@ -49,7 +49,7 @@ const getPosts = async (req: any, res: any) => {
             return res.status(400).json({err: "Unauthorized"}); 
         }
 
-        const posts = await Posts.find();
+        const posts = await Posts.find().sort({createdAt: -1});
 
         res.json(posts);
     }catch(err: any){
