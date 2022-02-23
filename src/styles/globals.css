@@ -29,7 +29,8 @@
         @apply bg-lightGray;
     }
 
-    input{
+    input,
+    textarea{
         @apply border-[1px] rounded-md border-dark px-2 text-dark outline-rtkBlue;
     }
 

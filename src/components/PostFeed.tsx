@@ -15,7 +15,25 @@ function PostFeed() {
                 className="w-full rounded-t-md p-2"
             ></textarea>
 
-            <div className="w-full"></div>
+            <div className="w-full rounded-b-md flex items-end justify-end">
+                <input 
+                    type="file" 
+                    name="post_file" 
+                    id="post_file" 
+                    className="hidden"
+                />
+
+                <label 
+                    htmlFor="post_file"
+                    className="bg-rtkRed text-white h-10 w-36 cursor-pointer hover:bg-rtkRed-lighter duration-200 flex items-center justify-center"
+                >
+                    add file
+                </label>
+                <button
+                    type="submit"
+                    className="bg-rtkBlue text-white h-10 w-36 cursor-pointer hover:bg-rtkBlue-darker duration-200 rounded-br-md"
+                >post</button>
+            </div>
         </form>
 
         <div className="bg-white p-2 w-full rounded-md">

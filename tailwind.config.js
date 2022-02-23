@@ -20,6 +20,11 @@ module.exports = {
         rtkBlue: {
           DEFAULT: "#5C61CE",
           darker: "#4D52D6"
+        },
+        rtkRed: {
+          DEFAULT: "#BE1953",
+          darker: "#771F49",
+          lighter: "#EB3355"
         }
       },
     },
