@@ -38,13 +38,20 @@ const EditProfilePopup: React.FC<Props> = ({setEditing}) => {
         updateInfo(name, username, email, course, uploadFile, userInfo.token, dispatch, setLoading, setEditing);
     }
 
+    const changeFile = (e: any) => {
+        if(e.target.files && e.target.files[0]){
+            setAvatar(URL.createObjectURL(e.target.files[0]))
+            setUploadFile(e.target.files[0]);
+        }
+    }
+
     return (
-        <div className="absolute top-0 left-0 z-40 w-full h-full bg-tpBg flex items-center justify-center">
-            <form className="bg-white flex py-5 px-40 flex-col items-center justify-center relative">
+        <div className="fixed top-0 left-0 z-40 w-full h-full bg-tpBg flex items-center justify-center">
+            <form className="bg-white flex py-5 w-full sm:px-40 flex-col items-center justify-center relative">
                 <img 
                     src="/svg/close.svg" 
                     alt="edit" 
-                    className="hidden sm:block absolute top-4 right-4 w-6 h-6 cursor-pointer" 
+                    className="absolute top-4 right-4 w-6 h-6 cursor-pointer" 
                     onClick={() => setEditing(false)}
                 />
 
@@ -57,6 +64,7 @@ const EditProfilePopup: React.FC<Props> = ({setEditing}) => {
                         id="avatar" 
                         className="hidden"
                         accept="image/*"
+                        onChange={(e) => changeFile(e)}
                     />
 
                     <label 
