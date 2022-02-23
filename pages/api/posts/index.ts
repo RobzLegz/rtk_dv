@@ -28,15 +28,15 @@ const createPost = async (req: any, res: any) => {
             return res.status(400).json({err: "Unauthorized"}); 
         }
 
-        const newUser = new Posts({
+        const newPost = new Posts({
             text: text,
             media: media,
             user: user._id
         });
 
-        await newUser.save();
+        await newPost.save();
 
-        res.json({msg: "Register Success!"});    
+        res.json(newPost);    
     }catch(err: any){
         return res.status(500).json({err: err.message});
     }

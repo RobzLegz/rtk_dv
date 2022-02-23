@@ -16,11 +16,19 @@ export const postSlice = createSlice({
         setPosts: (state, action) => {
             state.posts = action.payload;
         },
+        publishPost: (state, action) => {
+            if(state.posts){
+                state.posts = [action.payload, ...state.posts];
+            }else{
+                state.posts = [action.payload];
+            }
+        },
     },
 });
 
 export const {
     setPosts,
+    publishPost
 } = postSlice.actions;
 
 export const selectPosts = (state: any) => state.post;
