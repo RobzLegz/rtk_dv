@@ -17,6 +17,10 @@
         @apply text-2xl text-dark font-bold;
     }
 
+    p{
+        @apply text-dark;
+    }
+
     body{
         @apply bg-lightGray;
     }

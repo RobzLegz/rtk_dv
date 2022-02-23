@@ -1,8 +1,10 @@
-import React from 'react'
+import React from "react"
 
 function RightSidebar() {
   return (
-    <div>RightSidebar</div>
+    <div className="w-64 p-2 bg-white">
+        <h3>Friends</h3>
+    </div>
   )
 }
 
