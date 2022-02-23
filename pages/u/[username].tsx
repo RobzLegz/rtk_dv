@@ -2,6 +2,7 @@ import Head from "next/head"
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Navigation from "../../src/components/Navigation";
+import ProfileContainer from "../../src/components/ProfileContainer";
 
 export default function Home() {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function Home() {
 
             <Navigation />
 
+            <ProfileContainer />
         </div>
     )
 }
