@@ -21,6 +21,7 @@ function PostFeed() {
                     name="post_file" 
                     id="post_file" 
                     className="hidden"
+                    accept="image/*"
                 />
 
                 <label 
