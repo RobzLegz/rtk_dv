@@ -22,7 +22,7 @@ const Post: React.FC<Props> = ({data}) => {
 
     useEffect(() => {
         if(!postUser && userInfo.users && userInfo.info){
-            setPostUser(getUserById(userInfo.users, userInfo.info._id));
+            setPostUser(getUserById(userInfo.users, data.user));
             setLiked(data.likes.includes(userInfo.info?._id));
         }
     }, [userInfo.users, postUser, userInfo.info]);
