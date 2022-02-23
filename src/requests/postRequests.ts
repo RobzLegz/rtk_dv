@@ -28,6 +28,12 @@ const createPost = async (
         return;
     }
 
+    if(text.length > 100){
+        setError("Text can't be that long");
+        setLoading(false);
+        return;
+    }
+
     setLoading(true);
 
     const media = await uploadImage(file);

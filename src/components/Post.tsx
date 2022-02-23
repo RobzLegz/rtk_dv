@@ -61,10 +61,10 @@ const Post: React.FC<Props> = ({data}) => {
                 <img 
                     src="/svg/heart.svg" 
                     alt="white heart with black outline"
-                    className="w-7 h-7 mr-1"
+                    className="w-7 h-7 mr-1 cursor-pointer"
                 />
 
-                <p>{data.likes}</p>
+                <p>{data.likes.length}</p>
             </div>
         </div>
     )
