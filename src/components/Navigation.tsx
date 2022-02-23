@@ -33,7 +33,7 @@ function Navigation() {
 
     if(type === "/auth/login" || type === "/auth/register"){
         return (
-            <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0">
+            <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 z-30">
                 <h1>RTK dzīve</h1>
             </nav>
         )
@@ -44,7 +44,7 @@ function Navigation() {
     }
     
     return (
-        <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 bg-rtkBlue">
+        <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 bg-rtkBlue z-30">
             <Link href="/">
                 <h1 className="md:mr-4 text-white cursor-pointer text-xl md:text-4xl">RTK dzīve</h1>
             </Link>

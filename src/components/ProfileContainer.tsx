@@ -30,8 +30,8 @@ function ProfileContainer() {
     }
 
     return (
-        <div className="w-full h-full pt-20 flex items-center justify-start flex-col">
-            <div className="w-[800px] flex bg-rtkBlue p-2 items-start justify-start mb-8 relative">
+        <div className="w-full h-full pt-20 flex items-center justify-start flex-col px-4 md:px-0">
+            <div className="w-full md:w-[500px] lg:w-[800px] flex bg-rtkBlue p-2 items-start justify-start mb-8 relative">
                 <img 
                     src={foundUser.avatar} 
                     alt={`${foundUser.username}'s RTK profile avatar`}
@@ -53,16 +53,35 @@ function ProfileContainer() {
 
                         <h4 className="text-white">Role: {foundUser.role}</h4>
                     </div>
+
+                    {
+                        userInfo.info?._id === foundUser._id ? (
+                            <button className="bg-rtkRed text-white h-8 w-36 cursor-pointer duration-200 flex sm:hidden items-center justify-center rounded-md">
+                                Edit profile
+                            </button>
+                        ) : (
+                            <button className="bg-rtkRed text-white h-8 w-36 cursor-pointer duration-200 flex items-center justify-center rounded-md">
+                                Add friend
+                            </button>
+                        )
+                    }
+                    
                 </div>
 
-                <img 
-                    src="/svg/edit.svg" 
-                    alt="edit" 
-                    className="absolute top-4 right-4 w-6 h-6" 
-                />
+                {
+                    userInfo.info?._id === foundUser._id && (
+                        <img 
+                            src="/svg/edit.svg" 
+                            alt="edit" 
+                            className="hidden sm:block absolute top-4 right-4 w-6 h-6" 
+                        />
+                    )
+                }
             </div>
 
-            <PostFeed />
+            <div className="w-full flex items-start justify-center">
+                <PostFeed />
+            </div>
         </div>
     )
 }
