@@ -59,7 +59,7 @@ const EditProfilePopup: React.FC<Props> = ({setEditing}) => {
 
     return (
         <div className="fixed top-0 left-0 z-40 w-full h-full bg-tpBg flex items-center justify-center">
-            <form className="bg-white flex py-5 w-full sm:px-40 flex-col items-center justify-center relative">
+            <form className="bg-white flex py-5 w-full sm:w-auto sm:px-40 flex-col items-center justify-center relative">
                 {
                     error && (
                         <div className="w-full p-2 bg-red-700 flex items-center justify-center">

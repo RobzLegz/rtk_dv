@@ -2,11 +2,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
+import { postInfo, selectPosts } from "../redux/slices/postSlice";
 import { selectUser, UserInfo } from "../redux/slices/userSlice";
+import { getPosts } from "../requests/postRequests";
 import { checkForLogin, getAllUsers } from "../requests/userRequests";
 
 function Navigation() {
     const userInfo: UserInfo = useSelector(selectUser);
+    const postInfo: postInfo = useSelector(selectPosts);
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -30,6 +33,12 @@ function Navigation() {
             getAllUsers(dispatch);
         }
     }, [userInfo.loggedIn, userInfo.token, userInfo.users, dispatch]);
+
+    useEffect(() => {
+        if(userInfo.loggedIn && userInfo.token && !postInfo.posts){
+            getPosts(dispatch, userInfo.token);
+        }
+    }, [userInfo.loggedIn, userInfo.token, dispatch, postInfo.posts]);
 
     if(type === "/auth/login" || type === "/auth/register"){
         return (
