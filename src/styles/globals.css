@@ -10,7 +10,11 @@
     }
 
     h2{
-        @apply text-4xl text-dark font-bold;
+        @apply text-3xl text-dark font-bold;
+    }
+
+    h3{
+        @apply text-2xl text-dark font-bold;
     }
 
     body{
