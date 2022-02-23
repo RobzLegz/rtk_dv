@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PostInterface } from '../interfaces/postInterface';
 import { UserInterface } from '../interfaces/userInterface';
 import getUserById from '../logic/getUserById';
 import { selectUser, UserInfo } from '../redux/slices/userSlice';
+import { likePost } from '../requests/postRequests';
 
 interface Props{
     data: PostInterface;
@@ -14,12 +15,15 @@ const Post: React.FC<Props> = ({data}) => {
     const userInfo: UserInfo = useSelector(selectUser);
 
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const [postUser, setPostUser] = useState<UserInterface | null>(null);
+    const [liked, setLiked] = useState<boolean>(false);
 
     useEffect(() => {
         if(!postUser && userInfo.users && userInfo.info){
             setPostUser(getUserById(userInfo.users, userInfo.info._id));
+            setLiked(data.likes.includes(userInfo.info?._id));
         }
     }, [userInfo.users, postUser, userInfo.info]);
 
@@ -59,9 +63,10 @@ const Post: React.FC<Props> = ({data}) => {
 
             <div className="flex mt-4 items-center">
                 <img 
-                    src="/svg/heart.svg" 
+                    src={liked ? "/svg/fullHeart.svg" : "/svg/heart.svg"} 
                     alt="white heart with black outline"
                     className="w-7 h-7 mr-1 cursor-pointer"
+                    onClick={() => likePost(data._id, userInfo.info?._id, dispatch, userInfo.token, liked, setLiked)}
                 />
 
                 <p>{data.likes.length}</p>
