@@ -11,6 +11,8 @@ function Navigation() {
     const dispatch = useDispatch();
     const router = useRouter();
   
+    const [type] = useState(router.pathname);
+
     useEffect(() => {
         if(!userInfo.loggedIn || !userInfo.token){
             const token = window.localStorage.getItem("refreshtoken");
@@ -22,8 +24,6 @@ function Navigation() {
             }
         }
     }, [userInfo.loggedIn, dispatch, userInfo.token, router]);
-
-    const [type] = useState(router.pathname);
 
     if(type === "/auth/login" || type === "/auth/register"){
         return (
