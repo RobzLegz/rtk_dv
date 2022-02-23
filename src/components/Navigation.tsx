@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, UserInfo } from "../redux/slices/userSlice";
-import { checkForLogin } from "../requests/userRequests";
+import { checkForLogin, getAllUsers } from "../requests/userRequests";
 
 function Navigation() {
     const userInfo: UserInfo = useSelector(selectUser);
@@ -24,6 +24,12 @@ function Navigation() {
             }
         }
     }, [userInfo.loggedIn, dispatch, userInfo.token, router]);
+
+    useEffect(() => {
+        if(userInfo.loggedIn && userInfo.token && !userInfo.users){
+            getAllUsers(dispatch);
+        }
+    }, [userInfo.loggedIn, userInfo.token, userInfo.users, dispatch]);
 
     if(type === "/auth/login" || type === "/auth/register"){
         return (

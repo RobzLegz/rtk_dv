@@ -1,13 +1,19 @@
 import Head from "next/head"
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navigation from "../../src/components/Navigation";
 import ProfileContainer from "../../src/components/ProfileContainer";
 
 export default function Home() {
     const router = useRouter();
 
-    const [username] = useState(router.query.username);
+    const [username, setUsername] = useState<string | string[] | undefined>("");
+
+    useEffect(() => {
+        if(!username){
+            setUsername(router.query.username);
+        }
+    }, [username, router, router.query, router.query.username])
 
     return (
         <div className="page">

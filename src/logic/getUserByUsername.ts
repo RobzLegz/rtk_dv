@@ -1,7 +1,7 @@
 import { UserInterface } from "../interfaces/userInterface";
 
-const getUserById = (users: UserInterface[] | null, username: string) => {
-    if(!users){
+const getUserByUsername = (users: UserInterface[] | null, username: string | string[] | undefined) => {
+    if(!users || !username){
         return null;
     }
 
@@ -14,4 +14,4 @@ const getUserById = (users: UserInterface[] | null, username: string) => {
     return user;
 }
 
-export default getUserById;
+export default getUserByUsername;
