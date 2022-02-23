@@ -44,29 +44,32 @@ function Navigation() {
             </Link>
 
             <input 
-                className="flex-1 h-8"
+                className="flex-1 h-8 hidden md:block"
                 type="text" 
                 name="" 
                 id="" 
+                placeholder="Search"
             />
 
-            <div className="flex ml-4 items-center">
-                <Link href="/">
-                    <p className="cursor-pointer mr-2 text-white">Home</p>
-                </Link>
+            <div className="flex items-center">
+                <div className="flex ml-4 items-center">
+                    <Link href="/">
+                        <p className="cursor-pointer mr-2 text-white">Home</p>
+                    </Link>
 
-                <Link href="/friends">
-                    <p className="cursor-pointer text-white">Friends</p>
+                    <Link href="/friends">
+                        <p className="cursor-pointer text-white">Friends</p>
+                    </Link>
+                </div>
+
+                <Link href={`/u/${userInfo.info.username}`}>
+                    <img 
+                        src={userInfo.info.avatar} 
+                        alt={`${userInfo.info.username}'s RTK avatar`} 
+                        className="w-10 h-10 rounded-full object-cover border-[1px] border-white ml-4 cursor-pointer"
+                    />
                 </Link>
             </div>
-
-            <Link href={`/u/${userInfo.info.username}`}>
-                <img 
-                    src={userInfo.info.avatar} 
-                    alt={`${userInfo.info.username}'s RTK avatar`} 
-                    className="w-10 h-10 rounded-full object-cover border-[1px] border-white ml-4 cursor-pointer"
-                />
-            </Link>
         </nav>
     )
 }

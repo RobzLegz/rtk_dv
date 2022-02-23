@@ -42,7 +42,7 @@ const Post: React.FC<Props> = ({data}) => {
                     <img 
                         src={data.media} 
                         alt={data.text} 
-                        className="w-full"
+                        className="w-full mt-2"
                     />
                 )
             }

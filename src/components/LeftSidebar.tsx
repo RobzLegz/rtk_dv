@@ -2,7 +2,7 @@ import React from "react"
 
 function LeftSidebar() {
     return (
-        <div className="bg-white p-2 pb-10 rounded-r-md hidden md:flex flex-col items-start w-64">
+        <div className="bg-white p-2 pb-10 rounded-r-md hidden md:flex flex-col items-start w-64 mr-4">
             <h3 className="mb-20">Topics</h3>
 
             <div className="flex items-center justify-center w-full cursor-pointer my-4">

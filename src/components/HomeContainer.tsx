@@ -5,7 +5,7 @@ import RightSidebar from './RightSidebar';
 
 function HomeContainer() {
   return (
-    <div className="w-full flex items-start justify-between h-full pt-20">
+    <div className="w-full flex items-start justify-center md:justify-between h-full pt-20 px-4 md:px-0">
         <LeftSidebar />
 
         <PostFeed />

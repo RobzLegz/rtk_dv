@@ -14,8 +14,8 @@ function RightSidebar() {
     }
 
     return (
-        <div className="w-64 p-2 bg-white flex items-start flex-col">
-            <h3 className="mb-20">Friends</h3>
+        <div className="lg:w-64 p-2 bg-white hidden md:flex items-start flex-col ml-4">
+            <h3 className="hidden lg:block">Friends</h3>
 
             {
                 testFriends
@@ -34,9 +34,14 @@ function RightSidebar() {
                 testFriends.length > renderAmount && (
                     <div className="w-full items-center justify-center flex mt-4">
                         <p 
-                            className="text-rtkBlue cursor-pointer"
+                            className="text-rtkBlue cursor-pointer hidden lg:block"
                             onClick={() => renderMore()}    
                         >load more</p>
+
+                        <p 
+                            className="text-rtkBlue cursor-pointer block lg:hidden"
+                            onClick={() => renderMore()}    
+                        >more</p>
                     </div>
                 )
             }

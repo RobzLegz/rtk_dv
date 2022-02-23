@@ -22,10 +22,10 @@ const Friend: React.FC<Props> = ({data}) => {
             <img 
                 src={data.avatar} 
                 alt={`${data.username}'s RTK avatar`} 
-                className="w-12 h-12 object-cover mr-2"
+                className="w-12 h-12 object-cover lg:mr-2"
             />
 
-            <div className="flex-1 flex flex-col items-start">
+            <div className="flex-1 hidden lg:flex flex-col items-start">
                 <h4>{data.username}</h4>
                 <p>{data.name}</p>
             </div>
