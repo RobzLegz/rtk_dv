@@ -30,15 +30,16 @@ const getAllUsers = async (req: any, res: any) => {
 
 const updateUserInfo = async (req: any, res: any) => {
     try{
-        const {name, username, email, course} = req.body;
+        const {name, username, email, course, avatar} = req.body;
 
         const user = await auth(req, res);
 
-        await user.updateOne({id: user._id.toString()}, {
+        await user.updateOne({
             name: name,
             username: username,
             email: email,
-            course: course
+            course: course,
+            avatar: avatar
         });
 
         res.json("Updated successfuly");

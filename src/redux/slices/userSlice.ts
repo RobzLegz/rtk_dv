@@ -45,12 +45,13 @@ export const userSlice = createSlice({
         },
         updateUser: (state, action) => {
             if(state.info){
-                const {name, username, course, email} = action.payload;
+                const {name, username, course, email, avatar} = action.payload;
 
                 state.info.name = name;
                 state.info.username = username;
                 state.info.course = course;
                 state.info.email = email;
+                state.info.avatar = avatar;
             }
         },
     },

@@ -1,20 +1,23 @@
 import cloudinary from "cloudinary";
 import fs from "fs";
+import verifyImage from "../../../src/middleware/verifyImage";
 
-export default async (req: any, res: any) => {
+export default async (req: any, res: any, next: any) => {
     switch(req.method){
         case "POST":
-            await upload(req, res)
+            await upload(req, res, next)
             break;
     }
 }
 
-const upload = async (req: any, res: any) => {
+const upload = async (req: any, res: any, next: any) => {
     try {
         const {CLOUD_NAME, CLOUD_API_KEY, CLOUD_API_SECRET} = process.env;
         if(!CLOUD_NAME || !CLOUD_API_KEY || !CLOUD_API_SECRET){
             return res.status(500).json({err: "Something went wrong"});
         }
+
+        await verifyImage(req, res, next);
 
         cloudinary.v2.config({
             cloud_name: CLOUD_NAME,

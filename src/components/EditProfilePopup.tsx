@@ -19,6 +19,7 @@ const EditProfilePopup: React.FC<Props> = ({setEditing}) => {
     const [avatar, setAvatar] = useState(userInfo.info?.avatar);
     const [course, setCourse] = useState(userInfo.info?.course);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     if(!userInfo.info){
         return null;
@@ -27,19 +28,30 @@ const EditProfilePopup: React.FC<Props> = ({setEditing}) => {
     const update = (e: any) => {
         e.preventDefault();
 
-        if(!name || !username || !email || !course){
+        if(!name || !username || !email || (!course && course !== "")){
             return setEditing(false);
         }
 
-        if(name === userInfo.info?.name && email === userInfo.info?.email && username === userInfo.info?.username && course === userInfo.info?.course){
+        if(name === userInfo.info?.name && email === userInfo.info?.email && username === userInfo.info?.username && course === userInfo.info?.course && avatar === userInfo.info?.avatar){
             return setEditing(false);
         }
 
-        updateInfo(name, username, email, course, uploadFile, userInfo.token, dispatch, setLoading, setEditing);
+        updateInfo(name, username, email, course, userInfo.info?.avatar, uploadFile, userInfo.token, dispatch, setLoading, setEditing);
     }
 
     const changeFile = (e: any) => {
+        setError("");
         if(e.target.files && e.target.files[0]){
+            const file = e.target.files[0];
+
+            if(file.size > 1024 * 1024){
+                return setError("File size too large!")
+            }
+
+            if(file.type !== "image/jpeg" && file.type !== "image/png"){
+                return setError("Incorrect file format!")
+            }
+
             setAvatar(URL.createObjectURL(e.target.files[0]))
             setUploadFile(e.target.files[0]);
         }
@@ -48,6 +60,14 @@ const EditProfilePopup: React.FC<Props> = ({setEditing}) => {
     return (
         <div className="fixed top-0 left-0 z-40 w-full h-full bg-tpBg flex items-center justify-center">
             <form className="bg-white flex py-5 w-full sm:px-40 flex-col items-center justify-center relative">
+                {
+                    error && (
+                        <div className="w-full p-2 bg-red-700 flex items-center justify-center">
+                            <p className="text-white">{error}</p>
+                        </div>
+                    )
+                }
+                
                 <img 
                     src="/svg/close.svg" 
                     alt="edit" 

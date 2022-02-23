@@ -172,11 +172,12 @@ const getUserInfoByUsername = (username: string | string[] | undefined, dispatch
         });
 }
 
-const updateInfo = (
+const updateInfo = async (
     name: string, 
     username: string, 
     email: string, 
     course: string, 
+    avatar: string | undefined,
     file: any, 
     token: string, 
     dispatch: any, 
@@ -184,12 +185,33 @@ const updateInfo = (
     setEditing: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
     setLoading(true);
+
+    let avatarUrl = avatar;
+
+    const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUD_UPDATE_PRESET;
+    const CLOUDINARY_URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
+
+    if(file && file !== null && CLOUDINARY_URL && UPLOAD_PRESET){
+        let fileForm = new FormData();
+        fileForm.append("file", file);
+        fileForm.append("upload_preset", UPLOAD_PRESET);
+
+        const res = await fetch(CLOUDINARY_URL, {
+            method: "POST",
+            body: fileForm, 
+        });
+
+        const resData = await res.json();
+
+        avatarUrl = resData.secure_url;
+    }
     
     const data = {
         name: name,
         username: username,
         email: email,
-        course: course
+        course: course,
+        avatar: avatarUrl
     }
 
     const headers = {
@@ -200,7 +222,7 @@ const updateInfo = (
 
     axios.put(`/api/user/`, data, headers)
         .then((res) => {
-            dispatch(updateUser({name, username, email, course}));
+            dispatch(updateUser({name, username, email, course, avatar: avatarUrl}));
             setLoading(false);
             setEditing(false);
         }).catch((err) => {
