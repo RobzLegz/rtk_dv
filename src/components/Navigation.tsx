@@ -32,31 +32,44 @@ function Navigation() {
             </nav>
         )
     }
+
+    if(!userInfo.info || !userInfo.loggedIn){
+        return null;
+    }
     
     return (
-        <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 bg-rtkBlue text-white">
+        <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 bg-rtkBlue">
             <Link href="/">
-                <h1 className="mr-4 text-white cursor-pointer">RTK dzīve</h1>
+                <h1 className="md:mr-4 text-white cursor-pointer text-xl md:text-4xl">RTK dzīve</h1>
             </Link>
 
             <input 
-                className="flex-1 h-8"
+                className="flex-1 h-8 hidden md:block"
                 type="text" 
                 name="" 
                 id="" 
+                placeholder="Search"
             />
 
-            <div className="flex ml-4">
-                <Link href="/">
-                    <p className="cursor-pointer mr-2">Home</p>
-                </Link>
+            <div className="flex items-center md:ml-4">
+                <div className="flex items-center">
+                    <Link href="/">
+                        <p className="cursor-pointer mr-2 text-white hidden sm:block">Home</p>
+                    </Link>
 
-                <Link href="/friends">
-                    <p className="cursor-pointer">Friends</p>
+                    <Link href="/friends">
+                        <p className="cursor-pointer text-white">Friends</p>
+                    </Link>
+                </div>
+
+                <Link href={`/u/${userInfo.info.username}`}>
+                    <img 
+                        src={userInfo.info.avatar} 
+                        alt={`${userInfo.info.username}'s RTK avatar`} 
+                        className="w-10 h-10 rounded-full object-cover border-[1px] border-white ml-4 cursor-pointer"
+                    />
                 </Link>
             </div>
-
-
         </nav>
     )
 }
