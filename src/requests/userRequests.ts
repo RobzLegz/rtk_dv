@@ -202,5 +202,6 @@ export {
     checkForLogin, 
     logoutuser, 
     updateInfo,
-    getUserInfoByUsername
+    getUserInfoByUsername,
+    getAllUsers
 };
