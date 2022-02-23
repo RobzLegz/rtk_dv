@@ -29,16 +29,23 @@ const likePost = async (req: any, res: any) => {
         }
 
         let likes = post.likes;
+        let newLikes: string[] = [];
 
         if(likes.includes(reqUserId)){
-            likes = likes.filter((id: string) => id !== reqUserId);
-            likes.filter((id: string) => id !== reqUserId);
+            likes
+                .filter((l: string) => l !== reqUserId)
+                .forEach((l: string) => {
+                    if(l.toString() !== reqUserId.toString()){
+                        newLikes = [...newLikes, l];
+                    }
+            });;
+            
         }else{
-            likes = [...likes, reqUserId];
+            newLikes = [...likes, reqUserId];
         }
 
         await post.updateOne({
-            likes: likes
+            likes: newLikes
         })
 
         res.json("Updated successfuly");
