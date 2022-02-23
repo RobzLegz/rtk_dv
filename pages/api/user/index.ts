@@ -30,17 +30,18 @@ const getAllUsers = async (req: any, res: any) => {
 
 const updateUserInfo = async (req: any, res: any) => {
     try{
-        const {name, username, email} = req.body;
+        const {name, username, email, course} = req.body;
 
         const user = await auth(req, res);
 
-        await Users.findByIdAndUpdate({id: user._id.toString()}, {
+        await user.updateOne({id: user._id.toString()}, {
             name: name,
             username: username,
-            email: email
+            email: email,
+            course: course
         });
 
-        res.json("Update successful");
+        res.json("Updated successfuly");
     }catch(err: any){
         return res.status(500).json({err: err.message});
     }

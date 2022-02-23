@@ -1,5 +1,5 @@
 import valid from "../utils/valid";
-import { login, logout, setActiveProfile, setToken, setUserInfo, setUsers } from "../redux/slices/userSlice";
+import { login, logout, setActiveProfile, setToken, setUserInfo, setUsers, updateUser } from "../redux/slices/userSlice";
 import { clearNotification, setNotification } from "../redux/slices/notificationSlice";
 import axios from "axios";
 
@@ -172,13 +172,24 @@ const getUserInfoByUsername = (username: string | string[] | undefined, dispatch
         });
 }
 
-const updateInfo = (name: string, username: string, email: string, token: string, dispatch: any) => {
-    dispatch(setNotification({type: "loading", message: "Loading"}));
+const updateInfo = (
+    name: string, 
+    username: string, 
+    email: string, 
+    course: string, 
+    file: any, 
+    token: string, 
+    dispatch: any, 
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>, 
+    setEditing: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    setLoading(true);
     
     const data = {
         name: name,
         username: username,
         email: email,
+        course: course
     }
 
     const headers = {
@@ -189,10 +200,12 @@ const updateInfo = (name: string, username: string, email: string, token: string
 
     axios.put(`/api/user/`, data, headers)
         .then((res) => {
-            dispatch(setNotification({type: "success", message: "Update success"}));
+            dispatch(updateUser({name, username, email, course}));
+            setLoading(false);
+            setEditing(false);
         }).catch((err) => {
-            const message: string = err.response.data.err;
-            dispatch(setNotification({type: "error", message: message}));
+            setLoading(false);
+            setEditing(false);
         });
 }
 

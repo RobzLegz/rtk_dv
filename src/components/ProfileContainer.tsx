@@ -22,10 +22,12 @@ function ProfileContainer() {
     }, [username, router, router.query, router.query.username]);
 
     useEffect(() => {
-        if(username && userInfo.users){
+        if(userInfo.info?.username === username){
+            setFoundUser(userInfo.info);
+        }else if(username && userInfo.users){
             setFoundUser(getUserByUsername(userInfo.users, username));
         }
-    }, [username, userInfo.users]);
+    }, [username, userInfo.users, userInfo.info]);
 
     if(!foundUser){
         return null;
@@ -86,7 +88,9 @@ function ProfileContainer() {
 
             {
                 editing && (
-                    <EditProfilePopup />
+                    <EditProfilePopup 
+                        setEditing={setEditing}
+                    />
                 )
             }
 

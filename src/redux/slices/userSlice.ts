@@ -43,6 +43,16 @@ export const userSlice = createSlice({
         setActiveProfile: (state, action) => {
             state.activeProfile = action.payload;
         },
+        updateUser: (state, action) => {
+            if(state.info){
+                const {name, username, course, email} = action.payload;
+
+                state.info.name = name;
+                state.info.username = username;
+                state.info.course = course;
+                state.info.email = email;
+            }
+        },
     },
 });
 
@@ -52,7 +62,8 @@ export const {
     setToken,
     logout,
     setUsers,
-    setActiveProfile
+    setActiveProfile,
+    updateUser
 } = userSlice.actions;
 
 export const selectUser = (state: any) => state.user;
