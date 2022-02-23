@@ -142,7 +142,6 @@ const logoutuser = (dispatch: any) => {
     window.localStorage.removeItem("firstLogin");
     window.localStorage.removeItem("refreshtoken");
     dispatch(logout());
-    dispatch(setNotification({type: "success", message: "Logged out!"}))
 }
 
 const getAllUsers = (dispatch: any) => {
