@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../requests/userRequests";
+import { loginUser, registerUser } from "../requests/userRequests";
 
 const AuthForm: React.FC = () => {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const AuthForm: React.FC = () => {
         if(type === "/auth/login"){
             loginUser(e, username, password, dispatch, router, loading, setLoading, setError)
         }else if(type === "/auth/register"){
-           
+            registerUser(e, username, name, email, password, dispatch, router, loading, setLoading, setError);
         }
     }   
 

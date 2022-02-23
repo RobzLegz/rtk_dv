@@ -71,7 +71,7 @@ const loginUser = (
         return setError("Please fill out all fields!");
     }
 
-    if(username.length < 6){
+    if(username.length < 4){
         setLoading(false);
         return setError("Username too short!");
     }
