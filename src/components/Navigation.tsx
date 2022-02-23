@@ -32,6 +32,10 @@ function Navigation() {
             </nav>
         )
     }
+
+    if(!userInfo.info || !userInfo.loggedIn){
+        return null;
+    }
     
     return (
         <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 bg-rtkBlue text-white">
@@ -46,7 +50,7 @@ function Navigation() {
                 id="" 
             />
 
-            <div className="flex ml-4">
+            <div className="flex ml-4 items-center">
                 <Link href="/">
                     <p className="cursor-pointer mr-2">Home</p>
                 </Link>
@@ -56,7 +60,13 @@ function Navigation() {
                 </Link>
             </div>
 
-
+            <Link href={`/u/${userInfo.info.username}`}>
+                <img 
+                    src={userInfo.info.avatar} 
+                    alt={`${userInfo.info.username}'s RTK avatar`} 
+                    className="w-10 h-10 rounded-full object-cover border-[1px] border-white ml-4 cursor-pointer"
+                />
+            </Link>
         </nav>
     )
 }
