@@ -40,7 +40,7 @@ function Navigation() {
     return (
         <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 bg-rtkBlue">
             <Link href="/">
-                <h1 className="mr-4 text-white cursor-pointer">RTK dzīve</h1>
+                <h1 className="md:mr-4 text-white cursor-pointer text-xl md:text-4xl">RTK dzīve</h1>
             </Link>
 
             <input 
@@ -51,10 +51,10 @@ function Navigation() {
                 placeholder="Search"
             />
 
-            <div className="flex items-center">
-                <div className="flex ml-4 items-center">
+            <div className="flex items-center md:ml-4">
+                <div className="flex items-center">
                     <Link href="/">
-                        <p className="cursor-pointer mr-2 text-white">Home</p>
+                        <p className="cursor-pointer mr-2 text-white hidden sm:block">Home</p>
                     </Link>
 
                     <Link href="/friends">

@@ -26,13 +26,13 @@ function PostFeed() {
 
                     <label 
                         htmlFor="post_file"
-                        className="bg-rtkRed text-white h-10 w-36 cursor-pointer hover:bg-rtkRed-lighter duration-200 flex items-center justify-center"
+                        className="bg-rtkRed text-white h-10 w-20 md:w-36 cursor-pointer hover:bg-rtkRed-lighter duration-200 flex items-center justify-center"
                     >
                         add file
                     </label>
                     <button
                         type="submit"
-                        className="bg-rtkBlue text-white h-10 w-36 cursor-pointer hover:bg-rtkBlue-darker duration-200 rounded-br-md"
+                        className="bg-rtkBlue text-white h-10 w-20 md:w-36 cursor-pointer hover:bg-rtkBlue-darker duration-200 rounded-br-md"
                     >post</button>
                 </div>
             </form>
