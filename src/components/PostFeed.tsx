@@ -5,11 +5,20 @@ import Post from './Post';
 function PostFeed() {
   return (
     <div className="w-[500px]">
-        <div className="bg-white w-full mb-4">
+        <form className="bg-white w-full mb-4 rounded-md">
+            <textarea 
+                placeholder="Create a post"
+                name="post" 
+                id="post" 
+                cols={30} 
+                rows={10}
+                className="w-full rounded-t-md p-2"
+            ></textarea>
 
-        </div>
+            <div className="w-full"></div>
+        </form>
 
-        <div className="bg-white p-2 w-full">
+        <div className="bg-white p-2 w-full rounded-md">
             {
                 postData.map((p, i) => {
                     return (

@@ -38,7 +38,7 @@ function Navigation() {
     }
     
     return (
-        <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 bg-rtkBlue text-white">
+        <nav className="w-full h-14 flex items-center justify-between px-5 fixed top-0 left-0 bg-rtkBlue">
             <Link href="/">
                 <h1 className="mr-4 text-white cursor-pointer">RTK dzīve</h1>
             </Link>
@@ -52,11 +52,11 @@ function Navigation() {
 
             <div className="flex ml-4 items-center">
                 <Link href="/">
-                    <p className="cursor-pointer mr-2">Home</p>
+                    <p className="cursor-pointer mr-2 text-white">Home</p>
                 </Link>
 
                 <Link href="/friends">
-                    <p className="cursor-pointer">Friends</p>
+                    <p className="cursor-pointer text-white">Friends</p>
                 </Link>
             </div>
 
