@@ -23,7 +23,7 @@ const uploadImage = async (file: any) => {
         return url;
     }
 
-    return null;
+    return "";
 }
 
 export default uploadImage;
