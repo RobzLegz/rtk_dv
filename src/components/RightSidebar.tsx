@@ -18,14 +18,16 @@ function RightSidebar() {
             <h3 className="mb-20">Friends</h3>
 
             {
-                testFriends.slice(0, renderAmount).map((f, i) => {
-                    return (
-                        <Friend 
-                            key={i}
-                            data={f}
-                        />
-                    )
-                })
+                testFriends
+                    .slice(0, renderAmount)
+                    .map((f, i) => {
+                        return (
+                            <Friend 
+                                key={i}
+                                data={f}
+                            />
+                        )
+                    })
             }
 
             {
